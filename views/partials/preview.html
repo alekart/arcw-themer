@@ -1,0 +1,147 @@
+<div class="col-md-6 text-center">
+	<div class="calendar-archives twentythirteen arw-theme1 arw-theme2"
+		 ng-class="{'hide-post-count': !showPostCount}">
+		<div class="calendar-navigation">
+			<a href="#" class="prev-year"><span>&lt;</span></a>
+
+			<div class="menu-container years">
+				<a href="#" class="title"> {{currentYear}}</a>
+				<ul class="menu" ng-class="{'force-open': showMenu}" style="top: 0px;">
+					<li><a href="#" class="2015 current selected" rel="0">{{currentYear}}</a></li>
+					<li><a href="#" class="2014" rel="0">2014</a></li>
+					<li><a href="#" class="2013" rel="1">2013</a></li>
+				</ul>
+				<div class="arrow-down" title="Selectioner une année">
+					<span>▼</span>
+				</div>
+			</div>
+			<a href="#" class="next-year disabled"><span>&gt;</span></a>
+		</div>
+		<div class="archives-years">
+			<div class="year 2014 last current" rel="0">
+				<div class="month">
+					<span class="month-name">jan</span>
+				            <span class="postcount"><span class="count-number">0</span><span
+									class="count-text">Posts</span>
+				            </span>
+				</div>
+				<div class="month">
+					<span class="month-name">feb</span>
+									<span class="postcount"><span class="count-number">0</span> <span
+											class="count-text">Posts</span></span>
+				</div>
+				<div class="month">
+					<span class="month-name">mar</span>
+									<span class="postcount"><span class="count-number">0</span> <span
+											class="count-text">Posts</span></span>
+				</div>
+				<div class="month has-posts last">
+					<a href="#">
+						<span class="month-name">apr</span>
+										<span class="postcount"><span class="count-number">4</span> <span
+												class="count-text">Posts</span></span>
+					</a>
+				</div>
+				<div class="month has-posts">
+					<a href="#">
+						<span class="month-name">may</span>
+										<span class="postcount"><span class="count-number">1</span> <span
+												class="count-text">Post</span></span>
+					</a>
+				</div>
+				<div class="month">
+					<span class="month-name">jun</span>
+									<span class="postcount"><span class="count-number">0</span> <span
+											class="count-text">Posts</span></span>
+				</div>
+				<div class="month">
+					<span class="month-name">jul</span>
+									<span class="postcount"><span class="count-number">0</span> <span
+											class="count-text">Posts</span></span>
+				</div>
+				<div class="month last">
+					<span class="month-name">aug</span>
+									<span class="postcount"><span class="count-number">0</span> <span
+											class="count-text">Posts</span></span>
+				</div>
+				<div class="month has-posts">
+					<a href="#">
+						<span class="month-name">sep</span>
+										<span class="postcount"><span class="count-number">1</span> <span
+												class="count-text">Post</span></span>
+					</a>
+				</div>
+				<div class="month has-posts">
+					<a href="#">
+						<span class="month-name">oct</span>
+										<span class="postcount"><span class="count-number">3</span> <span
+												class="count-text">Posts</span></span>
+					</a>
+				</div>
+				<div class="month">
+					<span class="month-name">nov</span>
+									<span class="postcount"><span class="count-number">0</span> <span
+											class="count-text">Posts</span></span>
+				</div>
+				<div class="month last">
+					<span class="month-name">dec</span>
+									<span class="postcount"><span class="count-number">0</span> <span
+											class="count-text">Posts</span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-6 text-center">
+	<div class="calendar-archives arw-theme1 twentythirteen arw-theme2"
+		 ng-class="{'hide-post-count': !showPostCount}">
+		<div class="calendar-navigation">
+			<a href="#" class="prev-year"><span>&lt;</span></a>
+
+			<div class="menu-container months">
+				<a href="#" class="title">{{monthList[currentMonth]}} {{currentYear}}</a>
+				<ul class="menu" ng-class="{'force-open': showMenu}"
+					style="top: 0px; display: none;">
+					<li><a href="#" class="2015 01 current selected" rel="0">{{monthList[currentMonth]}}
+						{{currentYear}}</a></li>
+					<li><a href="#" class="2014 12" rel="0">september 2014</a></li>
+					<li><a href="#" class="2011 10" rel="0">october 2011</a></li>
+					<li><a href="#" class="2011 06" rel="0">june 2011</a></li>
+				</ul>
+				<div class="arrow-down" title="Select archives year"><span>▼</span></div>
+			</div>
+			<a href="#" class="next-year disabled"><span>&gt;</span></a>
+		</div>
+		<div class="week-row weekdays">
+			<span class="day weekday">mon</span>
+			<span class="day weekday">thu</span>
+			<span class="day weekday">wen</span>
+			<span class="day weekday">tue</span>
+			<span class="day weekday">fri</span>
+			<span class="day weekday">sat</span>
+			<span class="day weekday last">sun</span>
+		</div>
+		<div class="archives-years">
+			<div class="year 12 2011 current" rel="0">
+				<div class="week-row" ng-repeat="week in cal">
+									<span ng-repeat="day in week"
+										  ng-class="{'noday': day.noday, 'today': day.today, 'last': day.last, 'has-posts': day.posts}"
+										  class="day" ng-bind-html="day.posts ? day.link : day.date">
+									</span>
+				</div>
+			</div>
+			<div class="year 12 2010 last" rel="0">
+				<div class="week-row"><span class="day last">&nbsp;</span>
+				</div>
+				<div class="week-row"><span class="day last">&nbsp;</span>
+				</div>
+				<div class="week-row"><span class="day last">&nbsp;</span>
+				</div>
+				<div class="week-row"><span class="day last">&nbsp;</span>
+				</div>
+				<div class="week-row"><span class="day last">&nbsp;</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
