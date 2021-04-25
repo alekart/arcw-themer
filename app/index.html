@@ -1,0 +1,1136 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<!-- build:css(app) styles/vendor.css -->
+	<link rel="stylesheet" href="styles/color-picker.css">
+	<link rel="stylesheet" href="styles/jquery-ui.css">
+	<!-- bower:css -->
+	<!-- endbower -->
+	<!-- endbuild -->
+	<!-- build:css(.tmp) styles/main.css -->
+	<link rel="stylesheet" href="styles/main.css">
+	<!-- endbuild -->
+	<script src="advertisment.js"></script>
+	<style id="style"></style>
+</head>
+<body ng-app="arcwThemerApp" ng-class="{adblock: adBlock}">
+<!--[if lte IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+	your browser</a> to improve your experience.</p>
+<![endif]-->
+<div class="alert alert-danger" id="adblock-alert" ng-if="adBlock" role="alert">
+	This is a free service Please disable Ad-block and support my work!
+
+</div>
+
+<!-- Add your site or application content here -->
+<div class="header">
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					data-target="#js-navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
+			<div class="navbar-brand">
+				ARCW Theme Editor v{{ version }}
+				<sup ng-if="beta" style="color: red">{{ beta }}</sup>
+				<small>by <a href="http://alek.be">alek</a></small>
+			</div>
+		</div>
+
+		<div class="collapse navbar-collapse" id="js-navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li ng-class="{active : page == 'about'}">
+					<a ng-href="" data-toggle="modal" data-target="#about-modal">About</a>
+				</li>
+				<li ng-class="{active : page == 'about'}">
+					<a ng-href="" data-toggle="modal" data-target="#changelog-modal">Changelog</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="theme-editor" ng-controller="editorCtrl">
+	<div class="loading" ng-class="{loaded: true}"></div>
+	<div class="sidebar options nopadding">
+
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingOne" data-toggle="collapse"
+					 data-parent="#accordion" data-target="#collapseOne" aria-expanded="false"
+					 aria-controls="collapseOne">
+					<h4 class="panel-title">
+						Navigation
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+					<div class="panel-body">
+						<h5>Base</h5>
+						<ul>
+							<li>
+								<label>Navigation bg:</label>
+								<input type='text' class='color-field' ng-model="navigation.background">
+							</li>
+							<li>
+								<label>Text Color:</label>
+								<input type='text' class='color-field' ng-model="navigation.color">
+							</li>
+							<li>
+								<label>
+									Font size: <span class="text-green">{{ navigation.fontSize }}px</span>
+								</label>
+
+								<div slider ng-model="navigation.fontSize" data-min="6"
+									 data-max="30"></div>
+							</li>
+							<li>
+								<label>
+									Height: <span class="text-green">{{ navigation.height }}px</span>
+								</label>
+
+								<div slider ng-model="navigation.height" data-min="20"
+									 data-max="100"></div>
+							</li>
+							<li>
+								<label>Margin bottom: <span
+										class="text-green">{{ navigation.marginBottom }}px</span></label>
+
+								<div slider ng-model="navigation.marginBottom" data-min="0"
+									 data-max="30"></div>
+							</li>
+						</ul>
+						<h5>Border</h5>
+						<ul>
+							<li>
+								<label>Border color:</label>
+								<input type='text' class='color-field' ng-model="navigation.borderColor">
+							</li>
+							<li>
+								<label>Border radius: <span
+										class="text-green">{{ navigation.borderRadius }}px</span></label>
+
+								<div slider ng-model="navigation.borderRadius" data-min="0"
+									 data-max="30"></div>
+							</li>
+
+							<li>
+								<label>Border: <span class="text-green">{{ navigation.border }}px</span></label>
+
+								<div slider ng-model="navigation.border" data-min="0"
+									 data-max="10"></div>
+							</li>
+
+							<li>
+								<div class="row">
+									<div class="col-xs-6">
+										<label>top: <span class="text-green">{{ navigation.borderTop }}px</span></label>
+
+										<div slider ng-model="navigation.borderTop" data-min="0"
+											 data-max="10"></div>
+									</div>
+									<div class="col-xs-6">
+										<label>right: <span
+												class="text-green">{{ navigation.borderRight }}px</span></label>
+
+										<div slider ng-model="navigation.borderRight" data-min="0"
+											 data-max="10"></div>
+									</div>
+									<div class="col-xs-6">
+										<label>bottom: <span
+												class="text-green">{{ navigation.borderBottom }}px</span></label>
+
+										<div slider ng-model="navigation.borderBottom" data-min="0"
+											 data-max="10"></div>
+									</div>
+									<div class="col-xs-6">
+										<label>left: <span
+												class="text-green">{{ navigation.borderLeft }}px</span></label>
+
+										<div slider ng-model="navigation.borderLeft" data-min="0"
+											 data-max="10"></div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingTwo" data-toggle="collapse"
+					 data-parent="#accordion" data-target="#collapseTwo" aria-expanded="false"
+					 aria-controls="collapseTwo">
+					<h4 class="panel-title">
+						Navigation: Buttons
+					</h4>
+				</div>
+				<div id="collapseTwo" class="panel-collapse collapse collapsed" role="tabpanel"
+					 aria-labelledby="headingTwo">
+					<div class="panel-body">
+						<h5>Prev/Next buttons</h5>
+						<ul>
+							<li>
+								<label>Width: <span class="text-green">{{ navigation.button.width }}px</span></label>
+
+								<div slider ng-model="navigation.button.width" data-min="20"
+									 data-max="50"></div>
+							</li>
+							<li>
+								<label>Hover text color:</label>
+								<input type='text' class='color-field' ng-model="navigation.button.hover.color">
+							</li>
+							<li>
+								<label>Hover background:</label>
+								<input type='text' class='color-field' ng-model="navigation.button.hover.background">
+							</li>
+							<li>
+								<label>
+									Font size: <span class="text-green">{{ navigation.button.fontSize }}px</span>
+								</label>
+
+								<div slider ng-model="navigation.button.fontSize" data-min="15"
+									 data-max="30"></div>
+							</li>
+							<li>
+								<label>Border width: <span
+										class="text-green">{{ navigation.button.borderWidth }}px</span></label>
+
+								<div slider ng-model="navigation.button.borderWidth" data-min="0"
+									 data-max="10"></div>
+							</li>
+							<li>
+								<label>Border color:</label>
+								<input type='text' class='color-field' ng-model="navigation.button.borderColor">
+							</li>
+							<li>
+								<label>Disabled state opacity: <span class="text-green">{{ navigation.button.disabled.opacity }}%</span></label>
+
+								<div slider ng-model="navigation.button.disabled.opacity" data-min="0"
+									 data-max="100"></div>
+							</li>
+						</ul>
+						<h5>Arrow button</h5>
+						<ul>
+							<li>
+								<label>Width: <span class="text-green">{{ navigation.arrow.width }}px</span></label>
+
+								<div slider ng-model="navigation.arrow.width" data-min="0"
+									 data-max="50"></div>
+							</li>
+							<li>
+								<label>Border width: <span
+										class="text-green">{{ navigation.arrow.borderWidth }}px</span></label>
+
+								<div slider ng-model="navigation.arrow.borderWidth" data-min="0"
+									 data-max="10"></div>
+							</li>
+							<li>
+								<label>Border color:</label>
+								<input type='text' class='color-field' ng-model="navigation.arrow.borderColor">
+							</li>
+							<li>
+								<label>Higlight border color:</label>
+								<input type='text' class='color-field' ng-model="navigation.arrow.active.borderColor">
+							</li>
+
+							<li>
+								<label>Hover background:</label>
+								<input type='text' class='color-field' ng-model="navigation.arrow.hover.background">
+							</li>
+
+							<li>
+								<label>Hover border color:</label>
+								<input type='text' class='color-field' ng-model="navigation.arrow.hover.borderColor">
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="navMenuHead" data-toggle="collapse"
+					 data-parent="#accordion" data-target="#collapseNavMenu" aria-expanded="false"
+					 aria-controls="collapseNavMenu">
+					<h4 class="panel-title">
+						Navigation: Menu
+					</h4>
+				</div>
+				<div id="collapseNavMenu" class="panel-collapse collapse collapsed" role="tabpanel"
+					 aria-labelledby="navMenuHead">
+					<div class="panel-body">
+						<label>
+							<input type="checkbox" name="shmenu" ng-model="showMenu" value="true"> Keep menu opened
+						</label>
+						<h5>Normal state</h5>
+						<ul>
+							<li>
+								<label>Background color:</label>
+								<input type='text' class='color-field' ng-model="navigation.menu.background">
+							</li>
+							<li>
+								<label>Text color:</label>
+								<input type='text' class='color-field' ng-model="navigation.menu.color">
+							</li>
+						</ul>
+						<h5>Hover state</h5>
+						<ul>
+							<li>
+								<label>Background color:</label>
+								<input type='text' class='color-field' ng-model="navigation.menu.a.hover.background">
+							</li>
+							<li>
+								<label>Text color:</label>
+								<input type='text' class='color-field' ng-model="navigation.menu.a.hover.color">
+							</li>
+						</ul>
+						<h5>Selected state</h5>
+						<ul class="panel-body">
+							<li>
+								<label>Background color:</label>
+								<input type='text' class='color-field' ng-model="navigation.menu.a.selected.background">
+							</li>
+							<li>
+								<label>Text color:</label>
+								<input type='text' class='color-field' ng-model="navigation.menu.a.selected.color">
+							</li>
+						</ul>
+						<h5>Shadow</h5>
+						<ul>
+							<li>
+								<label><input type="checkbox" ng-model="menuDropShadow" value="true"/> Drop
+									Shadow</label>
+							</li>
+							<li>
+								<label>Shadow color:</label>
+								<input type='text' class='color-field' ng-model="navigation.menu.shadow.hex">
+							</li>
+							<li>
+								<label>Shadow color alpha: <span class="text-green">{{ navigation.menu.shadow.opacity }}%</span></label>
+
+								<div slider ng-model="navigation.menu.shadow.opacity" data-min="1"
+									 data-max="100"></div>
+							</li>
+							<li>
+								<label>Shadow X: <span
+										class="text-green">{{ navigation.menu.shadow.x }}px</span></label>
+
+								<div slider ng-model="navigation.menu.shadow.x" data-min="-30"
+									 data-max="30"></div>
+							</li>
+							<li>
+								<label>Shadow Y: <span
+										class="text-green">{{ navigation.menu.shadow.y }}px</span></label>
+
+								<div slider ng-model="navigation.menu.shadow.y" data-min="-30"
+									 data-max="30"></div>
+							</li>
+							<li>
+								<label>shadow Blur: <span class="text-green">{{ navigation.menu.shadow.blur }}px</span></label>
+
+								<div slider ng-model="navigation.menu.shadow.blur" data-min="0"
+									 data-max="40"></div>
+							</li>
+							<li>
+								<label>Shadow Spread: <span
+										class="text-green">{{ navigation.menu.shadow.spread }}px</span></label>
+
+								<div slider ng-model="navigation.menu.shadow.spread" data-min="0"
+									 data-max="20"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="collapse-separate"></div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="heading4" data-toggle="collapse"
+					 data-parent="#accordion" data-target="#collapse4" aria-expanded="false"
+					 aria-controls="collapse4">
+					<h4 class="panel-title">
+						Calendar
+					</h4>
+				</div>
+				<div id="collapse4" class="panel-collapse collapse collapsed" role="tabpanel"
+					 aria-labelledby="heading4">
+					<div class="panel-body">
+						<ul>
+							<li>
+								<label>Background:</label>
+								<input type='text' class='color-field' ng-model="month.calBg">
+							</li>
+						</ul>
+						<h5>Month/Day</h5>
+						<ul>
+							<li>
+								<label>Background:</label>
+								<input type='text' class='color-field' ng-model="month.background">
+							</li>
+							<li>
+								<label>Has posts BG:</label>
+								<input type='text' class='color-field' ng-model="month.haspost.background">
+							</li>
+							<li>
+								<label>Has posts hover BG:</label>
+								<input type='text' class='color-field' ng-model="month.haspost.hoverbg">
+							</li>
+							<li>
+								<label>Month/day separator:</label>
+								<input type='text' class='color-field' ng-model="month.sepBorderColor">
+							</li>
+							<li>
+								<hr/>
+								<label>Text:</label>
+								<input type='text' class='color-field' ng-model="month.color">
+							</li>
+							<li>
+								<label>Has post text:</label>
+								<input type='text' class='color-field' ng-model="month.haspost.color">
+							</li>
+							<li>
+								<label>Has post hover text:</label>
+								<input type='text' class='color-field' ng-model="month.haspost.hoverColor">
+							</li>
+
+							<li>
+								<hr/>
+								<label>Border radius: <span class="text-green">
+									{{ month.borderRadius }}px
+									</span>
+								</label>
+
+								<div slider ng-model="month.borderRadius" data-min="0"
+									 data-max="40"></div>
+							</li>
+							<li>
+								<hr/>
+								<label>Month/day spacing: <span class="text-green">{{ month.spacer }}%</span></label>
+
+								<div slider ng-model="month.spacer" data-min="0"
+									 data-max="10"></div>
+								<div class="row">
+									<div class="col-xs-6">
+										<label>right: <span class="text-green">{{ month.spacerRight }}%</span></label>
+
+										<div slider ng-model="month.spacerRight" data-min="0"
+											 data-max="10"></div>
+									</div>
+									<div class="col-xs-6">
+										<label>bottom: <span class="text-green">{{ month.spacerBottom }}%</span></label>
+
+										<div slider ng-model="month.spacerBottom" data-min="0"
+											 data-max="10"></div>
+									</div>
+								</div>
+							</li>
+						</ul>
+
+						<h5>Weekdays titles</h5>
+						<ul>
+							<li>
+								<label>Background:</label>
+								<input type='text' class='color-field' ng-model="month.weekdays.background">
+							</li>
+							<li>
+								<label>Height:
+									<span class="text-green">{{ month.weekdays.height }}px</span>
+								</label>
+
+								<div slider ng-model="month.weekdays.height" data-min="20"
+									 data-max="100"></div>
+							</li>
+							<li>
+								<label>Margin bottom:
+									<span class="text-green">{{ month.weekdays.marginBottom }}px</span>
+								</label>
+
+								<div slider ng-model="month.weekdays.marginBottom" data-min="0"
+									 data-max="10"></div>
+							</li>
+							<li>
+								<hr/>
+								<label>Font color:</label>
+								<input type='text' class='color-field' ng-model="month.weekdays.color">
+							</li>
+							<li>
+								<label>Font size: <span class="text-green">
+									{{ month.weekdays.fontSize }}px
+									</span> <input type="checkbox" ng-model="month.weekdays.bold"/> Bold
+								</label>
+
+								<div slider ng-model="month.weekdays.fontSize" data-min="6"
+									 data-max="30"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="heading6" data-toggle="collapse"
+					 data-parent="#accordion" data-target="#collapse6" aria-expanded="false"
+					 aria-controls="collapse6">
+					<h4 class="panel-title">
+						Month
+					</h4>
+				</div>
+				<div id="collapse6" class="panel-collapse collapse collapsed" role="tabpanel"
+					 aria-labelledby="heading6">
+					<div class="panel-body">
+						<ul>
+							<li>
+								<label>Month height: <span class="text-green">
+									{{ month.height }}px
+									</span>
+								</label>
+
+								<div slider ng-model="month.height" data-min="20"
+									 data-max="100"></div>
+							</li>
+						</ul>
+						<h5>Month name</h5>
+						<ul class="panel-body">
+							<li>
+								<label>Font size: {{ month.name.fontSize }}px</label>
+
+								<div slider ng-model="month.name.fontSize" data-min="8"
+									 data-max="40"></div>
+							</li>
+							<li>
+								<label>Position X: {{ month.name.x }}px</label>
+
+								<div slider ng-model="month.name.x" data-min="0"
+									 data-max="50"></div>
+							</li>
+							<li>
+								<label>Position Y: {{ month.name.y }}px</label>
+
+								<div slider ng-model="month.name.y" data-min="0"
+									 data-max="50"></div>
+							</li>
+						</ul>
+						<h5>Post count</h5>
+						<ul class="panel-body">
+							<li>
+								<label>
+									<input type="checkbox" ng-model="month.empty.postcount.display" value="true"/> Show
+									post
+									count on empty month</label>
+								<hr/>
+							</li>
+							<li>
+								<label>Text:</label>
+								<input type='text' class='color-field' ng-model="month.empty.postcount.color">
+							</li>
+							<li>
+								<label>Has post text:</label>
+								<input type='text' class='color-field' ng-model="month.postcount.color">
+							</li>
+							<li>
+								<label>Has post hover text:</label>
+								<input type='text' class='color-field' ng-model="month.postcount.hoverColor">
+							</li>
+							<li>
+								<hr/>
+								<label>Position from <input type="radio" ng-model="month.postcount.xFrom" value="left"/>
+									left
+									<input type="radio" ng-model="month.postcount.xFrom" value="right"/> right:
+									<span class="text-green">{{ month.postcount.x }}px</span>
+								</label>
+
+								<div slider ng-model="month.postcount.x" data-min="0"
+									 data-max="50"></div>
+
+							</li>
+							<li>
+								<label>Position from <input type="radio" ng-model="month.postcount.yFrom" value="top"/>
+									top
+									<input type="radio" ng-model="month.postcount.yFrom" value="bottom"/> bottom:
+									<span class="text-green">{{ month.postcount.y }}px</span>
+								</label>
+
+								<div slider ng-model="month.postcount.y" data-min="0"
+									 data-max="50"></div>
+
+							</li>
+							<li>
+								<hr/>
+								<label>Number font size: <span class="text-green">{{ month.postcount.number.fontSize }}px</span></label>
+
+								<div slider ng-model="month.postcount.number.fontSize" data-min="8"
+									 data-max="40"></div>
+							</li>
+							<li>
+								<hr/>
+								<label>
+									<input type="checkbox" ng-model="month.postcount.text.display"
+										   value="true"> Show "Post" text
+								</label>
+								<label>Post text font size: {{ month.postcount.text.fontSize }}px</label>
+
+								<div slider ng-model="month.postcount.text.fontSize" data-min="6"
+									 data-max="20"></div>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="heading5" data-toggle="collapse"
+					 data-parent="#accordion" data-target="#collapse5" aria-expanded="false"
+					 aria-controls="collapse5">
+					<h4 class="panel-title">
+						Day
+					</h4>
+				</div>
+				<div id="collapse5" class="panel-collapse collapse collapsed" role="tabpanel"
+					 aria-labelledby="heading5">
+					<div class="panel-body">
+						<ul>
+							<li>
+								<label>Height: {{ day.height }}px</label>
+
+								<div slider ng-model="day.height" data-min="15"
+									 data-max="60"></div>
+							</li>
+							<li>
+								<label>Font size: {{ day.fontSize }}px</label>
+								<label>
+									<input type="radio" ng-model="day.fontWeight"
+										   value="bold"> <span class="text-green">Bold</span>
+								</label>
+								<label>
+									<input type="radio" ng-model="day.fontWeight"
+										   value="normal"> <span class="text-green">normal</span>
+								</label>
+
+								<div slider ng-model="day.fontSize" data-min="6"
+									 data-max="30"></div>
+							</li>
+							<li>
+								<h5>Has post</h5>
+								<label>
+									Font weight:
+								</label>
+								<label>
+									<input type="radio" ng-model="day.haspost.fontWeight"
+										   value="bold"> <span class="text-green">Bold</span>
+								</label>
+								<label>
+									<input type="radio" ng-model="day.haspost.fontWeight"
+										   value="normal"> <span class="text-green">normal</span>
+								</label>
+							</li>
+							<hr/>
+							<h5>Today</h5>
+							<li>
+								<label>Border: {{ day.today.border }}px</label>
+								<div slider ng-model="day.today.border" data-min="0"
+									 data-max="5"></div>
+							</li>
+							<li>
+								<label>Border color:</label>
+								<input type='text' class='color-field' ng-model="day.today.borderColor">
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="main">
+		<div class="col-xs-12 col-sm-8 col-md-9">
+			<div class="arcw card">
+				<h2>Preview</h2>
+
+				<p>
+					<button class="btn btn-primary btn-sm" ng-click="openFileDialog()">Upload theme</button>
+					<span>&nbsp;</span> or
+					<button class="btn btn-link btn-xs" ng-click="openModal('#import-modal')">Insert theme code</button>
+					<input class="hidden" type="file" id="files" name="files" accept=".arcw"/>
+				</p>
+
+				<p>
+					<label>
+						<input type="checkbox" name="shmenu" ng-model="showMenu" value="true"> Keep menu opened
+					</label> &nbsp;&nbsp;&nbsp;
+					<label>
+						<input type="checkbox" name="shpostcount" ng-model="showPostCount" value="true"> Show post count
+						<small>(only in preview, check widget settings)</small>
+					</label>
+				</p>
+
+				<div class="row arcw-preview-zone">
+					<label id="preview-bg-select">
+						Preview background: &nbsp;
+						<input type='text' class='color-field' ng-model="global.preview">
+					</label>
+
+					<ng-include src="'/views/partials/preview.html'"></ng-include>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<p>
+							<br/>
+							Export as <label><input type="radio" ng-model="theme" value="arw-theme1"/> Theme 1</label> -
+							<label><input type="radio" ng-model="theme" value="arw-theme2"/> Theme 2</label>
+						</p>
+					</div>
+					<div class="col-sm-6">
+						<p>
+							<button class="btn btn-success" ng-click="saveJSON()">Download ARCW theme</button>
+							<button class="btn btn-link btn-sm" ng-click="getCODE()">Show theme CODE</button>
+						</p>
+					</div>
+					<div class="col-sm-6">
+						<p>
+							<button class="btn btn-success" ng-click="saveCSS()">Download theme CSS</button>
+							<button class="btn btn-link btn-success btn-sm" ng-click="getCSS()">Show CSS</button>
+						</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div id="side-ad" class="hidden-xs col-sm-4 col-md-3">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- Side 160x600 -->
+			<ins class="adsbygoogle"
+				 style="display:inline-block;width:160px;height:600px"
+				 data-ad-client="ca-pub-6595057428866921"
+				 data-ad-slot="7400330318"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
+
+	</div>
+<pre id="css">
+.calendar-archives {
+    position: relative;
+    width: 100%;
+	font-size: {{ global.fontSize }}px;
+}
+
+.calendar-archives * {
+    box-sizing: border-box !important;
+}
+
+.calendar-archives a,
+.calendar-archives a:focus,
+.calendar-archives a:active {
+    outline: none !important;
+}
+
+.calendar-archives.{{ theme }} .calendar-navigation {
+    position: relative;
+    display: table;
+    width: 100%;
+}
+
+.calendar-archives.{{ theme }} .prev-year,
+.calendar-archives.{{ theme }} .next-year,
+.calendar-archives.{{ theme }} .menu-container {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.calendar-archives.{{ theme }} > .archives-years {
+    position: relative;
+    overflow: hidden;
+}
+
+.calendar-archives.{{ theme }} .year {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: -100%;
+    width: 100%;
+    z-index: 0;
+}
+
+.calendar-archives.{{ theme }} .year-link {
+    display: none;
+}
+
+.calendar-archives.{{ theme }} .year.last {
+    position: relative;
+}
+
+.calendar-archives.{{ theme }} .year.current {
+    margin-left: 0;
+    z-index: 1;
+}
+
+.settings_page_Arrchives_Calendar_Widget #TB_ajaxContent, .arcw-preview-zone {
+    background-color: {{ global.preview }};
+}
+
+.calendar-archives a {
+    text-decoration: none;
+}
+
+.calendar-archives.{{ theme }} .calendar-navigation {
+    height: {{ navigation.height }}px !important;
+    margin: {{ navigation.marginTop }}px {{ navigation.marginRight }}px {{ navigation.marginBottom }}px {{ navigation.marginLeft }}px;
+
+    color: {{ navigation.color }};
+	font-size: {{ navigation.fontSize }}px;
+
+    border-top: {{ navigation.borderTop }}px;
+    border-right: {{ navigation.borderRight }}px;
+    border-bottom: {{ navigation.borderBottom }}px;
+    border-left: {{ navigation.borderLeft }}px;
+    border-style: solid;
+    border-color: {{ navigation.borderColor }};
+
+    border-radius: {{ navigation.borderRadius }}px;
+
+	background-color: {{ navigation.background }};
+}
+
+.calendar-archives.{{ theme }} .prev-year,
+.calendar-archives.{{ theme }} .next-year {
+    width: {{ navigation.button.width }}px;
+    border-radius: {{ navigation.borderRadius }}px;
+    font-size: {{ navigation.button.fontSize }}px;
+	line-height: {{ navigation.height }}px;
+    text-align: center;
+    color: {{ navigation.color }};
+}
+
+.calendar-archives.{{ theme }} .prev-year > span,
+.calendar-archives.{{ theme }} .next-year > span {
+	display: block;
+	line-height: {{ navigation.height }}px;
+}
+
+.calendar-archives.{{ theme }} .prev-year:hover,
+.calendar-archives.{{ theme }} .next-year:hover {
+	color: {{ navigation.button.hover.color }};
+    background-color: {{ navigation.button.hover.background }};
+}
+
+.calendar-archives.{{ theme }} .prev-year:hover span,
+.calendar-archives.{{ theme }} .next-year:hover span {
+	color: {{ navigation.button.hover.color }};
+}
+
+.calendar-archives.{{ theme }} .prev-year.disabled,
+.calendar-archives.{{ theme }} .next-year.disabled {
+    opacity: {{ navigation.button.disabled.opacity / 100 }};
+    cursor: default;
+}
+
+.calendar-archives.{{ theme }} .prev-year.disabled:hover,
+.calendar-archives.{{ theme }} .next-year.disabled:hover {
+    background: none;
+}
+
+.calendar-archives.{{ theme }} .prev-year {
+    border-right: {{ navigation.button.borderWidth }}px {{ navigation.button.borderColor }} solid;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.calendar-archives.{{ theme }} .next-year {
+    border-left: {{ navigation.button.borderWidth }}px {{ navigation.button.borderColor }} solid;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.calendar-archives.{{ theme }} .menu-container {
+    position: relative;
+    height: {{ navigation.height }}px;
+    padding: 0;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.calendar-archives.{{ theme }} .menu-container:hover {
+    background-color: {{ navigation.button.hover.background }}
+}
+
+.calendar-archives.{{ theme }} .menu-container > a.title {
+    display: block;
+    height: {{ navigation.height }}px;
+    line-height: {{ navigation.height }}px;
+    color: {{ navigation.color }};
+    vertical-align: middle;
+}
+
+.calendar-archives.{{ theme }} .menu-container > ul,
+.calendar-archives.{{ theme }} .menu-container > ul > li {
+    margin: 0;
+    padding: 0;
+}
+
+.calendar-archives.{{ theme }} .menu-container > ul.menu {
+    position: absolute;
+    display: none;
+    width: 100%;
+    top: 0;
+    overflow: hidden;
+    border-radius: {{ navigation.borderRadius }};
+    box-shadow: {{ navigation.menu.shadowValue }};
+    background: {{ navigation.menu.background }};
+    z-index: 99;
+}
+
+.calendar-archives.{{ theme }} .menu-container li {
+    display: block;
+}
+
+.calendar-archives.{{ theme }} .menu-container li > a {
+    display: block;
+    height: {{ navigation.height }}px;
+    line-height: {{ navigation.height }}px;
+    color: {{ navigation.menu.color }};
+}
+
+.calendar-archives.{{ theme }} .menu-container li > a:hover {
+    cursor: pointer;
+    color: {{ navigation.menu.a.hover.color }};
+    background: {{ navigation.menu.a.hover.background }};
+}
+
+.calendar-archives.{{ theme }} .menu-container li > a.selected {
+    color: {{ navigation.menu.a.selected.color }};
+    background: {{ navigation.menu.a.selected.background }};
+}
+
+.calendar-archives.{{ theme }} .menu-container li > a.selected:hover {
+    text-decoration: none;
+    cursor: default;
+    color: {{ navigation.menu.a.selected.color }};
+    background: {{ navigation.menu.a.selected.background }};
+}
+
+.calendar-archives.{{ theme }} .arrow-down {
+    position: absolute;
+    width: {{ navigation.arrow.width }}px;
+    height: {{ navigation.height }}px;
+    line-height: {{ navigation.height }}px;
+    top: 0;
+    right: 0;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    color: {{ navigation.button.color }};
+    cursor: pointer;
+	border-left: {{ navigation.arrow.borderWidth }}px {{ navigation.arrow.borderColor }} solid;
+}
+
+.calendar-archives.{{ theme }} .arrow-down:hover {
+	border-color: {{ navigation.arrow.hover.borderColor }} !important;
+    background-color: {{ navigation.arrow.hover.background }};
+}
+
+.calendar-archives.{{ theme }} .menu-container:hover > .arrow-down {
+    border-left: {{ navigation.button.borderWidth }}px {{ navigation.arrow.active.borderColor }} solid;
+}
+
+.calendar-archives.{{ theme }} > .archives-years {
+    background-color: {{ month.calBg }};
+}
+
+.calendar-archives.{{ theme }} .month,
+.calendar-archives.{{ theme }} .day {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    float: left;
+    float: left;
+    color: {{ month.color }};
+    background-color: {{ month.background }};
+    border-bottom: 1px {{ month.sepBorderColor }} solid;
+    border-right: 1px {{ month.sepBorderColor }} solid;
+    border-radius: {{ month.borderRadius }}px;
+
+	{{ month.spacerBottom ? 'margin-bottom: '+month.spacerBottom+'%;' : '' }}
+	{{ month.spacerRight ? 'margin-right: '+month.spacerRight+'%;' : '' }}
+}
+
+.calendar-archives.{{ theme }} .month.has-posts a,
+.calendar-archives.{{ theme }} .day.has-posts a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: {{ month.haspost.color }};
+    border-radius: {{ month.borderRadius }}px;
+    /*border-bottom: 3px solid #b93207;*/
+	background-color: {{ month.haspost.background }};
+}
+
+.calendar-archives.{{ theme }} .month.has-posts a:hover,
+.calendar-archives.{{ theme }} .day.has-posts a:hover {
+	background-color: {{ month.haspost.hoverbg }};
+	color: {{ month.haspost.hoverColor }};
+}
+
+.calendar-archives.{{ theme }} .month.last,
+.calendar-archives.{{ theme }} .day.last {
+    border-right: none !important;
+    margin-right: 0 !important;
+}
+
+.calendar-archives.{{ theme }} .month {
+    width: {{ 25 - month.spacerRight + month.spacerRight/4 }}%;
+    height: {{ month.height }}px;
+}
+
+.calendar-archives.{{ theme }} .month-name {
+    text-transform: capitalize;
+    font-size: {{ month.name.fontSize }}px;
+    font-weight: 400;
+    display: block;
+    position: absolute;
+    top: {{ month.name.y }}px;
+    left: {{ month.name.x }}px;
+	color: {{ month.name.color }}
+}
+
+.calendar-archives.{{ theme }} .postcount {
+	{{ !month.empty.postcount.display ? 'display: none;' : 'display: block;' }}
+	color: {{ month.empty.postcount.color }};
+}
+
+.calendar-archives.{{ theme }} .month.has-posts .postcount {
+    display: block;
+	color: {{ month.postcount.color }};
+}
+
+.calendar-archives.{{ theme }} .month.has-posts:hover .postcount {
+	color: {{ month.postcount.hoverColor }};
+}
+
+.calendar-archives.{{ theme }} .postcount {
+	position: absolute;
+    {{ month.postcount.xFrom }}: {{ month.postcount.x }}px;
+    {{ month.postcount.yFrom }}: {{ month.postcount.y }}px;
+	font-size: {{ month.postcount.number.fontSize }}px;
+}
+
+.calendar-archives.{{ theme }} .postcount .number {
+    font-size: {{ month.postcount.text.fontSize }}px;
+}
+
+.calendar-archives.{{ theme }} .postcount .count-text {
+    font-size: {{ month.postcount.text.fontSize }}px;
+	{{ !month.postcount.text.display ? 'display: none;' : '' }}
+}
+
+.calendar-archives.{{ theme }} .day {
+    width: {{ 14.285 - month.spacerRight + month.spacerRight/7 }}% !important;
+    height: {{ day.height }}px;
+	font-size: {{ day.fontSize }}px;
+	line-height: {{ day.height }}px;
+    text-align: center;
+	{{ day.fontWeight ? 'font-weight: '+day.fontWeight+';' : '' }}
+}
+
+.calendar-archives.{{ theme }} .day.today {
+	{{  day.today.border ? 'border-bottom: ' + day.today.border + 'px solid' + day.today.borderColor + ';' : '' }};
+}
+
+.calendar-archives.{{ theme }} .day.has-posts a {
+    height: {{ day.height }}px;
+    text-decoration: none;
+	{{ day.haspost.fontWeight ? 'font-weight: '+day.haspost.fontWeight+';' : '' }}
+}
+
+.calendar-archives.{{ theme }} .day.noday {
+	box-shadow: none;
+    background: none !important;
+	border-bottom: 1px {{ month.sepBorderColor }} solid;
+    border-right: 1px {{ month.sepBorderColor }} solid;
+}
+
+.calendar-archives.{{ theme }} .day.weekday {
+    display: inline-block;
+	padding: 0;
+	height: {{ month.weekdays.height }}px;
+	line-height: {{ month.weekdays.height }}px;
+    border: none;
+    font-size: {{ month.weekdays.fontSize }}px;
+	font-weight: {{ month.weekdays.bold ? 'bold' : 'normal' }};
+    color: {{ month.weekdays.color }};
+    text-transform: uppercase;
+    box-shadow: none;
+    background: none !important;
+}
+
+.calendar-archives.{{ theme }} .week-row {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: {{ month.calBg }};
+}
+
+.calendar-archives.{{ theme }} .week-row.weekdays {
+	height: {{ month.weekdays.height }}px;
+	line-height: {{ month.weekdays.height }}px;
+    margin-bottom: {{ month.weekdays.marginBottom }}px;
+	background-color: {{ month.weekdays.background }};
+}
+</pre>
+
+</div>
+<ng-include src="'/views/about.html'"></ng-include>
+<ng-include src="'/views/changelog.html'"></ng-include>
+<ng-include src="'/views/modals.html'"></ng-include>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-20483302-10', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/jquery-ui.js"></script>
+<script src="scripts/wp/color-picker.js"></script>
+<script src="scripts/wp/iris.min.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/directives/jquislider.js"></script>
+<script src="scripts/services/editor.js"></script>
+<script src="scripts/controllers/editor.js"></script>
+<script src="scripts/main.js"></script>
+<!-- endbuild -->
+</body>
+</html>

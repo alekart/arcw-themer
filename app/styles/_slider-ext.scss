@@ -1,0 +1,13 @@
+.ui-slider {
+	position: relative;
+	margin: 5px 0;
+	//width: 85%;
+	> span.val {
+		position: absolute;
+		display: block;
+		top: -2px;
+		right: -17%;
+		text-align: right;
+		font-size: 11px;
+	}
+}

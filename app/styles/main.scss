@@ -1,0 +1,269 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+@import "bootstrap";
+
+@import "bootstrap/sidebar";
+
+@import "themer";
+@import "slider-ext";
+
+.browsehappy {
+	margin: 0.2em 0;
+	background: #ccc;
+	color: #000;
+	padding: 0.2em 0;
+}
+
+body {
+	//min-width: 850px !important;
+	padding: 0;
+	&.adblock {
+		padding-top: $navbar-height * 2 - 7;
+		.sidebar {
+			padding-top: $navbar-height * 2 - 7;
+		}
+	}
+	*:focus {
+		outline: none;
+	}
+}
+
+.calendar-archives * {
+	-webkit-box-sizing: border-box !important;
+	-moz-box-sizing: border-box !important;
+	box-sizing: border-box !important;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+	border-bottom: 1px solid #e5e5e5;
+	margin-bottom: 10px;
+
+	/* Make the masthead heading the same height as the navigation */
+	h3 {
+		margin-top: 0;
+		margin-bottom: 0;
+		line-height: 40px;
+		padding-bottom: 19px;
+	}
+}
+
+/* Custom page footer */
+.footer {
+	position: relative;
+	padding: 19px 15px 10px !important;
+	color: #777;
+	background-color: white;
+	border-top: 1px solid #e5e5e5;
+	z-index: 0;
+}
+
+.container-narrow > hr {
+	margin: 30px 0;
+}
+
+.text-green {
+	font-weight: 500;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+	text-align: center;
+	border-bottom: 1px solid #e5e5e5;
+
+	.btn {
+		font-size: 21px;
+		padding: 14px 24px;
+	}
+}
+
+/* Supporting marketing content */
+.marketing {
+	margin: 40px 0;
+
+	p + h4 {
+		margin-top: 28px;
+	}
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+	.container {
+		max-width: 730px;
+	}
+
+	/* Remove the padding we set earlier */
+	.header,
+	.marketing,
+	.footer {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	/* Space out the masthead */
+	.header {
+		margin-bottom: 30px;
+	}
+	/* Remove the bottom border on the jumbotron for visual effect */
+	.jumbotron {
+		border-bottom: 0;
+	}
+}
+
+#adblock-alert {
+	position: fixed;
+	top: $navbar-height;
+	left: 0;
+	z-index: 1200;
+	width: 100%;
+	padding: 25px;
+	font-size: $font-size-h4;
+	text-align: center;
+	border: none;
+	background-color: $alert-danger-text;
+	color: #fff;
+	border-radius: 0;
+}
+
+.nopadding {
+	padding: 0;
+}
+
+.panel-group {
+	.panel + .panel {
+		margin-top: -1px;
+	}
+
+	.panel, .panel-heading {
+		border-radius: 0 !important;
+	}
+
+	.panel > .panel-heading {
+		cursor: pointer;
+		//background-color: #ebebeb;
+		&.collapsed {
+			//background-color: lighten(#f5f5f5, 10%);
+		}
+	}
+}
+
+.theme-editor {
+	padding-left: 300px;
+}
+
+.arcw-preview-zone{
+	position: relative;
+	padding: 60px 20px 50px;
+	> #preview-bg-select {
+		position: absolute;
+		top: 20px;
+		right: 30px;
+	}
+}
+
+.loading {
+	display: block;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #CCCCCC;
+	z-index: 99999;
+	&.loaded {
+		display: none;
+	}
+}
+
+.sidebar.options {
+	margin-left: -300px;
+	left: 300px;
+	width: 300px;
+}
+
+.main {
+	width: 100%;
+	padding-top: 20px;
+}
+
+.hide-post-count {
+	.postcount {
+		display: none !important;
+	}
+}
+
+.wp-picker-container * {
+	box-sizing: content-box;
+}
+
+#side-ad {
+	background: #f5f5f5;
+	padding-top: 10px;
+}
+
+#about-image {
+	height: 150px;
+	float: left;
+	margin: 20px 10px 10px 20px;
+}
+
+#about-modal {
+	font-weight: 300;
+	font-size: 12px;
+	h1 {
+		position: relative;
+		font-weight: 300;
+		font-size: 36px;
+		text-align: right;
+		line-height: 20px;
+		> small {
+			display: inline-block;
+			font-weight: 300;
+			font-size: 15px;
+			> sup {
+				display: inline-block;
+				//margin-right: -60px;
+			}
+		}
+	}
+	hr {
+		margin-top: 20px;
+	}
+
+	h4 {
+		font-weight: 300;
+	}
+}
+
+small {
+	font-weight: normal !important;
+}
+
+pre#css {
+	width: 0;
+	height: 0;
+	visibility: hidden;
+}
+
+.collapse-separate {
+	height: 20px;
+}
+
+.force-open {
+	display: block !important;
+}
+
+.btn-group > label.btn-default {
+	&.active {
+		@extend .btn-primary;
+	}
+}
