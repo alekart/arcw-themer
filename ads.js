@@ -1,1 +1,1 @@
-var adson = true;
+var adson = !!adsbygoogle;
